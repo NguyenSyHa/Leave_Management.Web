@@ -1,14 +1,17 @@
 ﻿#nullable disable
 
 using AutoMapper;
+using Leave_Management.Web.Constants;
 using Leave_Management.Web.Contracts;
 using Leave_Management.Web.Data;
 using Leave_Management.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Leave_Management.Web.Controllers
 {
+    [Authorize(Roles = Roles.Administrator)]
     public class LeaveTypesController : Controller
     {
         private readonly ILeaveTypeRepository _leaveTypeRepository;
