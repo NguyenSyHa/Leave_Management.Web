@@ -4,5 +4,6 @@ namespace Leave_Management.Web.Contracts
 {
     public interface ILeaveTypeRepository : IGenericRepository<LeaveType>
     {
+
     }
 }

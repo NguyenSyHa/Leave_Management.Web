@@ -13,5 +13,7 @@ namespace Leave_Management.Web.Data
         public LeaveType? LeaveType { get; set; }
 
         public string? EmployeeId { get; set; }
+
+        public int Period { get; set; }
     }
 }

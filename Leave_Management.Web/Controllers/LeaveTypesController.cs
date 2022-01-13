@@ -1,26 +1,28 @@
 ﻿#nullable disable
 
 using AutoMapper;
-using Leave_Management.Web.Constants;
 using Leave_Management.Web.Contracts;
 using Leave_Management.Web.Data;
 using Leave_Management.Web.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Leave_Management.Web.Controllers
 {
-    [Authorize(Roles = Roles.Administrator)]
+    //[Authorize(Roles = Roles.Administrator)]
     public class LeaveTypesController : Controller
     {
         private readonly ILeaveTypeRepository _leaveTypeRepository;
         private readonly IMapper _mapper;
+        private readonly ILeaveAllocationRepository leaveAllocationRepository;
 
-        public LeaveTypesController(ILeaveTypeRepository repository, IMapper mapper)
+        public LeaveTypesController(ILeaveTypeRepository repository
+            , IMapper mapper
+            , ILeaveAllocationRepository leaveAllocationRepository)
         {
             _leaveTypeRepository = repository;
             _mapper = mapper;
+            this.leaveAllocationRepository = leaveAllocationRepository;
         }
 
         // GET: LeaveTypes
@@ -138,6 +140,14 @@ namespace Leave_Management.Web.Controllers
         private async Task<bool> LeaveTypeExists(int id)
         {
             return await _leaveTypeRepository.Exists(id);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AllocateLeave(int id)
+        {
+            await leaveAllocationRepository.LeaveAllocation(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
