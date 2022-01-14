@@ -25,7 +25,7 @@ namespace Leave_Management.Web.Configurations.Entities
                 {
                     Id = "3f4631bd-f907-4409-b416-ba356131e659",
                     Email = "user@example.com",
-                    NormalizedEmail = "USER@LOCALHOST.COM",
+                    NormalizedEmail = "USER@EXAMPLE.COM",
                     FirstName = "System",
                     LastName = "User",
                     PasswordHash = hasher.HashPassword(null, "Abc@123")
