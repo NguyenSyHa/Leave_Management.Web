@@ -133,7 +133,7 @@ namespace Leave_Management.Web.Repositories
 
         public async Task<EmployeeLeaveRequestViewVM> GetMyLeaveDetails()
         {
-            var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
+            var user = await _userManager.GetUserAsync(_httpContextAccessor?.HttpContext?.User);
             var allocations = (await _leaveAllocationRepository.GetEmployeeAllocations(user.Id)).LeaveAllocations;
             var requests = _mapper.Map<List<LeaveRequestVM>>(await GetAllAsync(user.Id));
 
