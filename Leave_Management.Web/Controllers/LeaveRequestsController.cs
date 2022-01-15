@@ -15,15 +15,18 @@ namespace Leave_Management.Web.Controllers
     public class LeaveRequestsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<LeaveRequestsController> _logger;
         private readonly ILeaveTypeRepository _leaveTypeRepository;
         private readonly ILeaveRequestRepository _leaveRequestRepository;
 
         public LeaveRequestsController(
             ApplicationDbContext context,
+            ILogger<LeaveRequestsController> logger,
             ILeaveTypeRepository leaveTypeRepository,
             ILeaveRequestRepository leaveRequestRepository)
         {
             _context = context;
+            _logger = logger;
             _leaveTypeRepository = leaveTypeRepository;
             _leaveRequestRepository = leaveRequestRepository;
         }
@@ -64,6 +67,7 @@ namespace Leave_Management.Web.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error Approving Request");
                 throw;
             }
 
@@ -80,7 +84,7 @@ namespace Leave_Management.Web.Controllers
             }
             catch (Exception ex)
             {
-
+                _logger.LogError(ex, "Error Cancelling Leave Request");
                 throw;
             }
             return RedirectToAction(nameof(MyLeave));
@@ -115,6 +119,7 @@ namespace Leave_Management.Web.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error Creating Leave Request");
                 ModelState.AddModelError(string.Empty, "An Error Has Occurred. Please Try Again Later.");
             }
 
